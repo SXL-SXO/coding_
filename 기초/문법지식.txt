@@ -1,0 +1,35 @@
+int, Integer 차이 
+[int (Primitive 자료형)]
+
+1. '자료형'을 의미한다.(int, float, long, double)
+
+2. '산술 연산'이 가능하다.
+
+3. null 로 초기화 불가능하다.★ (0으로 초기화 가능)
+
+4. int 는 4 byte 이다.
+
+​
+
+[Integer (Wrapper 클래스 - 객체) ]
+
+1. Wrapper 클래스이다.
+
+2. Unboxing 을 하지 않으면 산술 연산이 불가능하다.
+
+- Integer.valueOf(String) : Ineger 클래스를 리턴하기 때문에 산술연산을 할 수 없다.
+
+- Integer.parseInt(String) : int 형을 리턴하기 때문에 산술연산을 할 수 있다.
+
+3. null 값을 처리할 수 있다.★
+
+4. Integer 는 객체(Object) 이므로 16byte 다. 용량을 더 잡아먹는다.
+
+​
+
+Mybatis 에서 쿼리의 결과(Select count(1) from 테이블)가 int 인 것이 있다고 가정하였을 때,
+
+ServiceImpl 에서 (Integer)로 형변환 하지 말고 int 로 받자.
+
+Integer 는 null 도 받기도 하고, byte가 크다. 해커들이 악용할 소지가 있다.
+[출처] [자바] int(자료형) 와 Integer(객체) 차이|작성자 의창
