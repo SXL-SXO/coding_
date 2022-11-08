@@ -1,3 +1,7 @@
+package 기초;
+
+import java.util.*;
+
 class Solution {
     public int solution(int n) {
         int answer = 0;
