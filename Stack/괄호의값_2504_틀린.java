@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class 괄호의값_2504 {
+public class 괄호의값_2504_틀린 {
     static int answer = 0;
     static char[] in;
     static Stack<Character> stack = new Stack<>();

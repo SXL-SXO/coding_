@@ -1,5 +1,3 @@
-package bj_coding;
-
 import java.io.*;
 import java.util.*;
 

@@ -1,5 +1,3 @@
-package ss_study;
-
 import java.util.*;
 import java.io.*;
 

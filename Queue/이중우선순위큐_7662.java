@@ -1,8 +1,4 @@
-package ss_study;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 // remove를 통한 구현 : 시간초과

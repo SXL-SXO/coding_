@@ -1,5 +1,3 @@
-package my_study;
-
 import java.util.Scanner;
 class 달팽이
 {

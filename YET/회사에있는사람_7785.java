@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-package bj_coding;
-
+/*
 import java.io.*;
 import java.util.*;
 
@@ -59,13 +57,13 @@ public class 회사에있는사람_7785 {
         System.out.print(answer);
     }   
 }
-=======
+*/
 import java.io.*;
 import java.util.*;
 
 public class 회사에있는사람_7785 {
     public static void main(String[] args) throws Exception {
-        PriorityQueue<String> queue = new PriorityQueue<>((o1,o2) -> o2-o1);
+        PriorityQueue<String> queue = new PriorityQueue<>((o1,o2) -> o1 - o2 );
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -78,6 +76,6 @@ public class 회사에있는사람_7785 {
             else
                 queue.offer(name);
         }
+
     }
 }
->>>>>>> fb68284e4863ad1d144eb4e205273080d43d2d9d

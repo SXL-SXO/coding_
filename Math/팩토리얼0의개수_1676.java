@@ -1,5 +1,3 @@
-package my_study;
-
 import java.io.*;
 
 public class 팩토리얼0의개수_1676 {

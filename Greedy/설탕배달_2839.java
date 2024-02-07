@@ -1,4 +1,3 @@
-package bj_coding;
 import java.util.*;
 import java.io.*;
 public class 설탕배달_2839 {
