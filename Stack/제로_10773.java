@@ -13,7 +13,7 @@ public class 제로_10773 {
             else stack.push(temp);
         }
         while(!stack.isEmpty()){
-            answer+=stack.pop();
+            answer += stack.pop();
         }
         System.out.println(answer);
     }
