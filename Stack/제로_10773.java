@@ -9,7 +9,7 @@ public class 제로_10773 {
         Deque<Integer> stack = new ArrayDeque<>();
         for(int i=0;i<K;i++){
             int temp = Integer.parseInt(br.readLine());
-            if(temp==0) stack.pop();
+            if(temp == 0) stack.pop();
             else stack.push(temp);
         }
         while(!stack.isEmpty()){
