@@ -63,19 +63,34 @@ import java.util.*;
 
 public class 회사에있는사람_7785 {
     public static void main(String[] args) throws Exception {
-        PriorityQueue<String> queue = new PriorityQueue<>((o1,o2) -> o1 - o2 );
-
+        
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+
+        StringBuilder sb = new StringBuilder();
+
+        Map<String, Integer> enter = new HashMap<>();
+        Map<String, Integer> leave = new HashMap<>();
 
         for(int i=0;i<N;i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             String name = st.nextToken();
-            if(st.nextToken().equals("leave"))
-                queue.remove(name);
+            String type = st.nextToken();
+            if(type.equals("leave"))
+                leave.put(name, i);
             else
-                queue.offer(name);
+                enter.put(name, i);
         }
 
+        PriorityQueue<String> queue = new PriorityQueue<>((o1,o2) -> -o1.compareTo(o2) );
+
+        for(String key : enter.keySet()){
+            if(leave.getOrDefault(key, -1) < enter.get(key))
+                queue.offer(key);
+        }
+        while(!queue.isEmpty()){
+            sb.append(queue.poll()).append("\n");
+        }
+        System.out.println(sb.toString());
     }
 }
