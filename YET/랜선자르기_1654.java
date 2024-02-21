@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class 랜선자르기_1654 {
-    static int K, N, answer = 0;
+    static int K, N;
     static int len[];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,24 +13,25 @@ public class 랜선자르기_1654 {
         N = Integer.parseInt(st.nextToken());
         len = new int[K];
 
-        long total = 0;
+        long max = 0, min = 0 ;
         for(int i=0;i<K;i++){
             len[i] = Integer.parseInt(br.readLine());
-            total += (long)len[i];
+            max += (long)len[i];
         }
-        answer = ran(((int)total/N),);
-        System.out.println(String.valueOf(answer));
-    }
-    static int ran(int l, int u){
-        int low = l, up = u;
-        if(low==up) return up;
-        long count = 0;
-        for(int i=0;i<K;i++){
-            count += (long)len[i]*2/(low+up);
+        min = 1; max/=N;
+        while(min<=max){
+            long mid = (min+max)/2L;
+            int count = 0;
+            for(int i=0;i<K;i++){
+                count += len[i]/mid;
+            }
+            if(count<N) { 
+                max = mid-1; 
+            }
+            else { 
+                min = mid+1;
+            }
         }
-        if(count==N) return (int)((low+up)/2);
-        else if(count>N) up = up - (low+up)/2;
-        else low = low - (low+up)/2;
-        return ran(low,up);
+        System.out.println(min-1);
     }
 }
