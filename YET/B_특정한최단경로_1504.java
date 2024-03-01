@@ -13,6 +13,7 @@ public class B_특정한최단경로_1504 {
         E = Integer.parseInt(st.nextToken());
         
         link = new int[N+1][N+1];
+        node = new long[N+1];
 
         for(int i=0;i<E;i++){
             st = new StringTokenizer(br.readLine());
@@ -27,26 +28,35 @@ public class B_특정한최단경로_1504 {
         V1 = Integer.parseInt(st.nextToken());
         V2 = Integer.parseInt(st.nextToken());
 
-        node = new long[N+1];
+        Arrays.fill(node,-1);
+        node[1] = 0;
+        pqueue.clear();
+        go(1); 
+
+        if(V1==1 && V2==N){
+            System.out.println(node[N]);
+            return;
+        }        
+        long start_V1=-1,start_V2=-1,V1_V2=-1,V1_end=-1,V2_end=-1;
+        
+        start_V1 = node[V1];
+        start_V2 = node[V2];
+
+        Arrays.fill(node,-1);
         node[V1] = 0;
         pqueue.clear();
         go(V1); 
-        if(node[1]==0 || node[N]==0 || node[V2]==0){
-            System.out.println(-1);
-            return;
-        }
-        answer = node[1] + node[V2];
+        V1_V2 = node[V2];
 
-        System.out.println("\n"+answer);
-        node = new long[N+1];
-        // node[V2] = 0;
-        // pqueue.clear();
-        // go(V2); 
-        // if(node[1]==0 || node[N]==0 || node[V1]==0){
-        //     System.out.println(-1);
-        //     return;
-        // }
-        // answer = Math.min(node[1] + node[V2], answer);
+        Arrays.fill(node,-1);
+        node[N] = 0;
+        pqueue.clear();
+        go(N); 
+        V1_end = node[V1];
+        V2_end = node[V2];
+
+        if(start_V1==-1 || start_V2==-1 || V1_V2==-1 || V1_end==-1 || V2_end==-1) answer =-1;
+        else answer = Math.min(start_V1+V1_V2+V2_end, start_V2+V1_V2+V1_end);
 
         System.out.println(answer);
     }
@@ -58,13 +68,13 @@ public class B_특정한최단경로_1504 {
         }
         while(!pqueue.isEmpty()){
             Node now = pqueue.poll();
-            System.out.print(now.v+" ");
+            //System.out.print(now.v+" ");
             for(int i=1;i<=N;i++){
                 //방문한 노드라면 node[i] + i -> now까지 가는데 걸린 cost vs node[now]
                 //방문하지 않은 노드라면 node[i] + i->now
-                if(i==idx) continue;
-                if(node[i]==0 || (node[i] > node[now.v] + link[i][now.v]) ) {
-                    node[i] = node[now.v] + link[i][now.v];
+                if(i==idx || i==now.v || link[i][now.v] ==0) continue;
+                if(node[i]==0 || (node[i] > node[now.v] + (long)link[i][now.v]) ) {
+                    node[i] = node[now.v] + (long)link[i][now.v];
                     pqueue.add(new Node(i, node[i]));
                 }
             }
