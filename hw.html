@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 위에는 공통, 아래에 추가하면 여러폰트 사용가능 -->
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Song+Myung&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>favorite_food</title>
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .song-myung-regular {
+            font-family: "Song Myung", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .title{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        H1.song-myung-regular{
+            font-size: 30px;
+        }
+        /* .container{
+            text-align: center;
+            display: flex;
+            justify-content: space-evenly;
+        }  */
+
+        .text{
+            display: none;
+            font-size: 15px;
+        }
+        .food {
+            display: none;
+        }
+        .name {
+            justify-content: space-evenly;
+            font-size: 15px;
+            display: block;
+            box-sizing: border-box;
+        }
+        /* .name:hover+.text {
+            display: block;
+        } */
+
+        #one:hover {
+            color : #B0C4DE;
+            background-color: #000000;
+            font-size: 50px;
+        }
+        #two:hover {
+            color : #ffffff;
+            background-color: #000000;
+            font-size: 50px;
+        }
+        #three:hover {
+            color : rgb(102, 102, 051);
+            background-color: #000000;
+            font-size: 50px;
+        }
+        #four:hover {
+            color : #fff0af;
+            background-color: #000000;
+            font-size: 50px;
+        }
+        #five:hover {
+            color : #eeddff;
+            background-color: #000000;
+            font-size: 50px;
+        }
+        #six:hover {
+            color : #8E54E9;
+            background-color: #000000;
+            font-size: 50px;
+        }
+        
+        /* #one:active {
+            position: absolute;
+            top:50%;
+            left:50%;
+            width:30%;
+            height:30%;
+            text-align:center;
+            transform: translate(-50%, -50%)
+        } */
+    </style>
+</head>
+<body>
+    <div class="title"><H1 class="song-myung-regular">"좋아하는 음식"</H1></div>
+    <div class="container-fluid w-auto h-auto">
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=one>권혜경<p></button>
+        </div>
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=two>김현우<p></button>
+        </div>
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=three>송도언<p></button>
+        </div>
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=four>이산하<p></button>
+        </div>
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=five>최민<p></button>
+        </div>
+        <div class="row">
+            <button type="name" class="btn btn-group-justified song-myung-regular" onclick="hideModel();" id=six>황세웅<p></button>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="food" id="onef" src = "food1.jpg" alt="고기사진" style="width:500px;height:500px;"></div>
+                <img class="food" id="twof" src = "food2.jpg" alt="치킨사진" style="width:500px;height:500px;"></div>
+                <img class="food" id="threef" src = "food6.jpg" alt="지코바사진" style="width:500px;height:500px;"></div>
+                <img class="food" id="fourf" src = "food3.jpg" alt="한식사진" style="width:500px;height:500px;"></div>
+                <img class="food" id="fivef" src = "food4.jpg" alt="치즈케이크사진" style="width:500px;height:500px;"></div>
+                <img class="food" id="sixf" src = "food5.jpg" alt="봉골레파스타사진" style="width:500px;height:500px;">
+            </div>
+        </div>
+    </div>
+        
+    <script>
+        var shape;
+        window.onload = function(){
+            document.querySelector("#one").onclick = function(){
+                shape =  document.querySelector("#onef");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#twof").style.display = 'none';
+                    document.querySelector("#threef").style.display = 'none';
+                    document.querySelector("#fourf").style.display = 'none';
+                    document.querySelector("#fivef").style.display = 'none';
+                    document.querySelector("#sixf").style.display = 'none';
+                }
+            }
+            document.querySelector("#two").onclick = function(){
+                shape =  document.querySelector("#twof");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#onef").style.display = 'none';
+                    document.querySelector("#threef").style.display = 'none';
+                    document.querySelector("#fourf").style.display = 'none';
+                    document.querySelector("#fivef").style.display = 'none';
+                    document.querySelector("#sixf").style.display = 'none';
+                }
+            }
+            document.querySelector("#three").onclick = function(){
+                shape =  document.querySelector("#threef");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#onef").style.display = 'none';
+                    document.querySelector("#twof").style.display = 'none';
+                    document.querySelector("#fourf").style.display = 'none';
+                    document.querySelector("#fivef").style.display = 'none';
+                    document.querySelector("#sixf").style.display = 'none';
+                }
+            }
+            document.querySelector("#four").onclick = function(){
+                shape =  document.querySelector("#fourf");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#onef").style.display = 'none';
+                    document.querySelector("#twof").style.display = 'none';
+                    document.querySelector("#threef").style.display = 'none';
+                    document.querySelector("#fivef").style.display = 'none';
+                    document.querySelector("#sixf").style.display = 'none';
+                }
+            }
+            document.querySelector("#five").onclick = function(){
+                shape =  document.querySelector("#fivef");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#onef").style.display = 'none';
+                    document.querySelector("#twof").style.display = 'none';
+                    document.querySelector("#threef").style.display = 'none';
+                    document.querySelector("#fourf").style.display = 'none';
+                    document.querySelector("#sixf").style.display = 'none';
+                }
+            }
+            document.querySelector("#six").onclick = function(){
+                shape =  document.querySelector("#sixf");
+                if(shape.style.display !== 'none') {
+                    shape.style.display = 'none';
+                }
+                else {
+                    shape.style.display = 'block';
+                    document.querySelector("#onef").style.display = 'none';
+                    document.querySelector("#twof").style.display = 'none';
+                    document.querySelector("#threef").style.display = 'none';
+                    document.querySelector("#fourf").style.display = 'none';
+                    document.querySelector("#fivef").style.display = 'none';
+                }
+            }
+        }
+    </script>
+    </body>
+</html>
