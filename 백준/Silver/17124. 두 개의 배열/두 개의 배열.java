@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     static int T, n, m;
-    static int A[];
+    static int A[], B[];
     static List<Node> list;
     static StringBuilder sb = new StringBuilder();
     static Long answer;
@@ -17,38 +17,29 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
             A = new int [n];
+            B = new int[m];
             answer = 0L;
-            list = new ArrayList<>();
 
             st = new StringTokenizer(br.readLine());
             for(int i=0;i<n;i++){
                 A[i] = Integer.parseInt(st.nextToken());
-                list.add(new Node(A[i], true));
             }
-            
             st = new StringTokenizer(br.readLine());
             for(int i=0;i<m;i++){
-                list.add(new Node(Integer.parseInt(st.nextToken()),false));
+                B[i] = Integer.parseInt(st.nextToken());
             }
 
-            Collections.sort(list, (o1,o2)-> o1.a-o2.a);
-
-            for(int i=0;i<list.size();i++){
-                if(!list.get(i).type) continue;
-                int front = -1000000001, back = 2000000001; 
-                for(int j=i-1;j>-1;j--){
-                    if(list.get(j).type) continue;
-                    front = list.get(j).a;
-                    break;
+            Arrays.sort(A);
+            Arrays.sort(B);
+            int r = 0;
+            for(int l = 0; l < n; l++){
+                while(r < m - 1 && A[l] >= B[r]) r++;
+                if(r > 0) {
+                    answer += (B[r] - A[l] < A[l] - B[r - 1] ? B[r] : B[r - 1]);
                 }
-                for(int j=i+1;j<list.size();j++){
-                    if(list.get(j).type) continue;
-                    back = list.get(j).a;
-                    break;
-                }
-                answer += list.get(i).a - front <= back- list.get(i).a ? front : back ;
-            }   
-            sb.append(answer).append("\n");
+                else answer += B[r];
+            }
+            sb.append(answer).append('\n');
         }
         System.out.println(sb.toString());
     }
