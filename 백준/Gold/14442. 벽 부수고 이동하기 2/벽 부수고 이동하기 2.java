@@ -1,14 +1,10 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
-
-class Main{
+import java.io.*;
+import java.util.*;
+public class Main {
     static int N, M, K, answer;
     static int[][] map;
     static int[][][] visit;
-    static PriorityQueue<Node> pq = new PriorityQueue<>((o1,o2)->o1.c-o2.c);
+    static Queue<Node> q = new ArrayDeque<>();
 
     static int dy[] = {-1,0,1,0};
     static int dx[] = {0,-1,0,1};
@@ -21,15 +17,13 @@ class Main{
         K = Integer.parseInt(st.nextToken());
 
         map = new int[N][M];
-        visit = new int[K+1][N][M];
+        visit = new int[N][M][K+1];
 
         for(int i = 0; i < N; i++){
             char c[] = br.readLine().toCharArray();
             for(int j = 0; j < M; j++){
                 map[i][j] = c[j]-'0';
-            }
-            for(int j = 0; j <= K; j++){
-                Arrays.fill(visit[j][i], Integer.MAX_VALUE);
+                Arrays.fill(visit[i][j], Integer.MAX_VALUE);
             }
         }
 
@@ -38,36 +32,33 @@ class Main{
         System.out.println(answer);
     }
     static int bfs() {
-        pq.offer(new Node(1,0,0,K));
+        q.offer(new Node(0,0,0));
         visit[0][0][0] = 1;
-        while(!pq.isEmpty()){
-            Node temp = pq.poll();
-            if(temp.y==N-1 && temp.x==M-1) return temp.c;
-            if(temp.h != 0){
-                if(visit[temp.h-1][temp.y][temp.x] < temp.c &&  visit[temp.h][temp.y][temp.x] < temp.c) continue;
-            }else if (visit[temp.h][temp.y][temp.x] < temp.c) continue;
+        while(!q.isEmpty()){
+            Node temp = q.poll();
+            int y = temp.y, x = temp.x, h = temp.h, c = visit[y][x][h];
+            if(temp.y==N-1 && temp.x==M-1) return c;
 
             for(int i = 0; i < 4; i++){
-                int ny = temp.y+dy[i];
-                int nx = temp.x+dx[i];
+                int ny = y+dy[i];
+                int nx = x+dx[i];
                 if(ny<0 || ny>=N || nx<0 || nx>=M) continue;
 
-                if(map[ny][nx]==0 && visit[temp.h][ny][nx] > temp.c+1) {
-                    pq.offer(new Node(temp.c+1,ny,nx,temp.h));
-                    visit[temp.h][ny][nx] = temp.c+1;
+                if(map[ny][nx]==0 && visit[ny][nx][h] > c+1) {
+                    q.offer(new Node(ny,nx,h));
+                    visit[ny][nx][h] = c+1;
                 }
-                else if (map[ny][nx]==1 && temp.h>0 && visit[temp.h-1][ny][nx] > temp.c+1) {
-                    pq.offer(new Node(temp.c+1,ny,nx,temp.h-1));
-                    visit[temp.h-1][ny][nx] = temp.c+1;
+                else if (map[ny][nx]==1 && h+1<=K && visit[ny][nx][h+1] > c+1) {
+                    q.offer(new Node(ny,nx,h+1));
+                    visit[ny][nx][h+1] = c+1;
                 }
             }
         }
         return -1;
     }
     static class Node{
-        int c, y, x, h;
-        Node(int c, int y, int x, int h){
-            this.c = c;
+        int y, x, h;
+        Node(int y, int x, int h){
             this.y = y;
             this.x = x;
             this.h = h;
