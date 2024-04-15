@@ -32,12 +32,16 @@ public class Main {
         System.out.println(answer);
     }
     static int bfs() {
+        int y,x,h,c;
         q.offer(new Node(0,0,0));
         visit[0][0][0] = 1;
         while(!q.isEmpty()){
             Node temp = q.poll();
-            int y = temp.y, x = temp.x, h = temp.h, c = visit[y][x][h];
-            if(temp.y==N-1 && temp.x==M-1) return c;
+            y = temp.y;
+            x = temp.x;
+            h = temp.h;
+            c = visit[y][x][h];
+            if( y==N-1 && x==M-1) return c;
 
             for(int i = 0; i < 4; i++){
                 int ny = y+dy[i];
