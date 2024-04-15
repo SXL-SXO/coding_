@@ -33,22 +33,16 @@ class Main{
             }
         }
 
-        bfs();
-
-        answer = visit[0][N-1][M-1];
-        for(int j = 1; j <= K; j++){
-            answer = Math.min(answer, visit[j][N-1][M-1]);
-        }
-        if(answer == Integer.MAX_VALUE) answer = -1;
+        answer = bfs();
 
         System.out.println(answer);
     }
-    static void bfs() {
+    static int bfs() {
         pq.offer(new Node(1,0,0,K));
         visit[0][0][0] = 1;
         while(!pq.isEmpty()){
             Node temp = pq.poll();
-            if(temp.y==N-1 && temp.x==M-1) continue;
+            if(temp.y==N-1 && temp.x==M-1) return temp.c;
             if(temp.h != 0){
                 if(visit[temp.h-1][temp.y][temp.x] < temp.c &&  visit[temp.h][temp.y][temp.x] < temp.c) continue;
             }else if (visit[temp.h][temp.y][temp.x] < temp.c) continue;
@@ -68,6 +62,7 @@ class Main{
                 }
             }
         }
+        return -1;
     }
     static class Node{
         int c, y, x, h;
