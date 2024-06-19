@@ -21,8 +21,8 @@ class Main{
             N = Integer.parseInt(st.nextToken());
             if(M == 0 && N == 0) break;
 
-            list = new ArrayList<>();
             visit = new boolean[M];
+            list = new ArrayList<>();
             for(int i = 0; i < M; i++){
                 list.add(new ArrayList<>());
             }
@@ -37,12 +37,11 @@ class Main{
                 list.get(a).add(new Node(b,c));
                 list.get(b).add(new Node(a,c));
             }
-
-            Mst(total);
+            sb.append(total-Mst()).append("\n");
         }
         System.out.println(sb);
     }
-    static void Mst(int total){
+    static int Mst(){
         int cost = 0, count = 0;
         pq.clear();
         pq.offer(new Node(1,0));
@@ -56,7 +55,7 @@ class Main{
                 if(!visit[node.i]) pq.offer(node);
             }
         }
-        sb.append(total-cost).append("\n");
+        return cost;
     }
     static class Node{
         int i,c;
