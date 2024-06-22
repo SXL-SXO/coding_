@@ -43,7 +43,7 @@ class Main{
         System.out.println(answer);
     }
     static void bfs(){
-        int  ny, nx;
+        int  ny, nx, next;
         Node temp;
 
         while(!pq.isEmpty()){
@@ -52,13 +52,15 @@ class Main{
             for(int i=0;i<4;i++){
                 ny = temp.y + dy[i];
                 nx = temp.x + dx[i];
-                if(ny>=N || ny<0 || nx>=M || nx<0 || visit[ny][nx] || answer<=temp.total+temp.cost) continue;
+                next = temp.total+temp.cost;
+                if(ny>=N || ny<0 || nx>=M || nx<0 || visit[ny][nx] || answer<=next) continue;
                 else if(map[ny][nx] == -1){
-                    answer = Math.min(answer, temp.total+temp.cost);
-                    continue;
+                    answer = Math.min(answer, next);
+                    if(temp.total==0) continue;
+                    else return;
                 }
                 if(temp.total!=0) visit[ny][nx] = true;
-                pq.offer(new Node(ny,nx,temp.cost,temp.total+temp.cost));
+                pq.offer(new Node(ny,nx,temp.cost,next));
             }
         }
     }
