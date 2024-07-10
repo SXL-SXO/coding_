@@ -3,7 +3,7 @@ import java.io.*;
 public class Main
 {
     static int input[];
-    static int N, S, start=-1, end, total = 0, answer = 0;
+    static int N, S, answer = 0, start=-1, end, total = 0;
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -25,16 +25,14 @@ public class Main
         	    start = 0;
         	    end = i;
         	    // 앞쪽 줄여서 사이즈 최소로 만들기
-        	    smaller();
+        	    if(total>S) smaller();
         	    // 슬라이딩 윈도우로 체크하기
 		        check();
 		        break;
 		    }
 		}
 		
-		if(start==-1) answer = 0;
-		else answer = end-start;
-// 		start+" "+end+" "+
+		if(start!=-1) answer = end-start;
 		System.out.print(answer);
 	}
 	static void smaller(){
