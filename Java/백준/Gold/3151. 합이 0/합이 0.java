@@ -4,18 +4,20 @@ class Main
 {
     static int N;
     static Long answer = 0L;
-    static List<Integer> input = new ArrayList<>();
     static int num[] = new int[20001];
+    static int input[];
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        int number;
+        int number, end = 0;
+        input = new int[N];
+        Arrays.fill(input, -10001);
         for(int i=0;i<N;i++){
             number = Integer.parseInt(st.nextToken());
-            if(num[number+10000]==0) input.add(number);
+            if(num[number+10000]==0) input[end++] = number;
             num[number+10000]++;
         }
 
@@ -26,16 +28,17 @@ class Main
             answer /= 6;
         }
 
-        Collections.sort(input);
+        Arrays.sort(input);
 
-        int size = input.size(), a, b;
-        for(int i=0;i<size;i++){
-            a = input.get(i);
+        int start = input.length-end, a, b;
+        for(int i=start;i<N;i++){
+            a = input[i];
             if(a>=0) break;
-            for(int j=i+1;j<size;j++){
-                b = input.get(j);
+            for(int j=i+1;j<N;j++){
+                b = input[j];
                 if(a+b>10000) break;
                 if(a+b<-10000 || num[10000-(a+b)]==0 ) continue;
+//                System.out.println(a+" "+num[a+10000]+" "+b+" "+num[b+10000]+" "+(a+b)*-1+" "+num[10000-(a+b)]+" "+answer);
                 if(a == b) answer += (long)(num[a+10000]-1)*(long)(num[b+10000]-1)*(long)num[10000-(a+b)];
                 else if(-a == a+b){
                     if(num[a+10000]>1) answer += ((long)(num[a+10000]-1)*(long)num[b+10000]*(long)num[10000+a])/2;
