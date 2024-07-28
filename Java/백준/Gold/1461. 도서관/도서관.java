@@ -15,21 +15,19 @@ public class Main
 		input = new int[N];
 		st = new StringTokenizer(br.readLine());
 		
-		int count_m = 0;
 		for(int i=0;i<N;i++){
 		    input[i] = Integer.parseInt(st.nextToken());
-		    if(input[i]<0) count_m++;
 		}
 		
 		Arrays.sort(input);
 		
 		int answer = 0;
-		// 무조건 절댓값이 큰 순서로 + 해줌
-		
-		for(int i = 0;i<count_m;i+=M){
+		for(int i = 0;i<N;i+=M){
+		    if(input[i]>0) break;
 		    answer += Math.abs(input[i])*2;
 		}
-		for(int i = N-1;i>=count_m;i-=M){
+		for(int i = N-1;i>=0;i-=M){
+		    if(input[i]<0) break;
 		    answer += Math.abs(input[i])*2;
 		}
 		
