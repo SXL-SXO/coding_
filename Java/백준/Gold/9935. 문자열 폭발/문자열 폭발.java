@@ -6,7 +6,6 @@ public class Main
     static String bomb;
     static char input[];
     static Stack<Character> stack = new Stack<>();
-    static Queue<Character> queue = new ArrayDeque<>();
     static StringBuilder sb = new StringBuilder();
     static StringBuilder temp = new StringBuilder();
     public static void main(String[] args) throws Exception {
@@ -27,7 +26,7 @@ public class Main
                 temp.append(stack.pop());
             }
             
-            temp = temp.reverse();
+            temp.reverse();
             if(!bomb.equals(temp.toString())) {
                 for(int i=0;i<temp.length();i++){
                     stack.push(temp.charAt(i));
@@ -37,13 +36,10 @@ public class Main
         
         if(stack.size() == 0) sb.append("FRULA");
         else{
-            Stack<Character> answer = new Stack<>();
-            while (!stack.isEmpty()) {
-                answer.push(stack.pop());
+            while(!stack.isEmpty()){
+                sb.append(stack.pop());
             }
-            while (!answer.isEmpty()) {
-                sb.append(answer.pop());
-            }
+            sb.reverse();
         }
         System.out.print(sb);
     }
