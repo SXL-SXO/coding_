@@ -18,7 +18,6 @@ public class Main
 	            case '+': num[i] = (input[i*2]-'0') + (input[(i+1)*2]-'0'); break;
 	            case '-': num[i] = (input[i*2]-'0') - (input[(i+1)*2]-'0'); break;
 	            case '*': num[i] = (input[i*2]-'0') * (input[(i+1)*2]-'0'); break;
-	            case '/': num[i] = (input[i*2]-'0') / (input[(i+1)*2]-'0'); break;
 	        }
 	    }
 	    
@@ -36,7 +35,6 @@ public class Main
 	        case '+': cal(idx+1, val+(input[idx*2]-'0')); break;
 	        case '-': cal(idx+1, val-(input[idx*2]-'0')); break;
 	        case '*': cal(idx+1, val*(input[idx*2]-'0')); break;
-	        case '/': cal(idx+1, (int)val/(input[idx*2]-'0')); break;
 	    }
 	    
 	    if(idx>=N/2) return;
@@ -44,7 +42,6 @@ public class Main
 	        case '+': cal(idx+2, val+num[idx]); break;
 	        case '-': cal(idx+2, val-num[idx]); break;
 	        case '*': cal(idx+2, val*num[idx]); break;
-	        case '/': cal(idx+2, (int)val/num[idx]); break;
 	    }
 	}
 }
