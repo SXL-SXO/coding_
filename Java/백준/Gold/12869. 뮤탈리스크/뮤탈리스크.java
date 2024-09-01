@@ -18,7 +18,6 @@ public class Main
         for(int i=0; i<N; i++) {
             input[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(input);
         check(1, 0, 0);
 
         System.out.print(answer);
@@ -30,22 +29,27 @@ public class Main
             return;
         }
         
-        for(int i = before; i<6; i++) {
+        total : for(int i = before; i<6; i++) {
             val = 0;
             j = 0;
             for(; j<3; j++){
-                if(j<N-res-1 && input[term[i][j]]<=0) break;
+                if(j<N-res-1 && input[term[i][j]]<=0) {
+                    return_input(i, j-1);
+                    i++;
+                    continue total;
+                }
                 input[term[i][j]]-=del[j];
                 if(input[term[i][j]]<=0) val++;
             }
             if(val==3) answer = Math.min(answer, count);
-            else if(j==3) check(count+1, i, val);
             
-            j-=1;
-            
-            for(; j>=0; j--){
-                input[term[i][j]]+=del[j];
-            }
+            check(count+1, i, val);
+            return_input(i, j-1);
          }
+    }
+    static void return_input(int i, int j){
+        for(; j>=0; j--){
+            input[term[i][j]]+=del[j];
+        }
     }
 }
