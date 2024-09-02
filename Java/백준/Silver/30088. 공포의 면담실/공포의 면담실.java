@@ -2,7 +2,8 @@ import java.io.*;
 import java.util.*;
 public class Main
 {
-    static int N, M, answer = 0, now = 0;
+    static int N, M;
+    static Long answer = 0L, now = 0L;
     static int time[];
 	public static void main(String[] args) throws Exception {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
