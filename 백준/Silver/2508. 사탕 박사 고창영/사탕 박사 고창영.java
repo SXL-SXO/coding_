@@ -26,8 +26,8 @@ public class Main
 	        for(int i=0;i<R;i++){
 	            for(int j=0;j<C;j++){
 	                if(map[i][j]=='o'){
-	                    if(i>=1 && i<R-1 && map[i-1][j]=='v' && map[i+1][j]=='^') answer++;
-	                    else if(j>=1 && j<C-1 && map[i][j-1]=='>' && map[i][j+1]=='<') answer++;
+	                    if(i>=1 && map[i-1][j]=='v' && i<R-1 && map[i+1][j]=='^') answer++;
+	                    else if(j>=1 && map[i][j-1]=='>' && j<C-1 && map[i][j+1]=='<') answer++;
 	                }
 	            }
 	        }
