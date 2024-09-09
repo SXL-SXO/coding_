@@ -4,14 +4,13 @@ import java.io.*;
 public class Main
 {
     static char map[][];
-    static int N, M;
+    static int N, M, count = 0;
     static boolean hasKey[], visit[][];
     static Map<Integer, List<Node>> wherelock = new HashMap<>();
     static Queue<Node> queue = new ArrayDeque<>();
     static int dy[] = {-1, 0, 1, 0};
     static int dx[] = {0, 1, 0, -1};
     static List<Node> templist;
-    static List<Node> list = new ArrayList<>();
     static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws Exception{
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,23 +37,17 @@ public class Main
 	    for(int i=0;i<26;i++){
 	        wherelock.put(i, new ArrayList<>());
 	    }
-	    
+	    sb.append("\n");
 	    fromEndToStart();
-	    makeAnswer();
-	    System.out.print(sb);
-	}
-	static void makeAnswer(){
-	    sb.append(list.size()).append("\n");
-	    for(Node n : list){
-	        sb.append(n.y).append(" ").append(n.x).append("\n");
-	    }
+	    System.out.print((count+1)+sb.toString());
 	}
 	static void fromEndToStart(){
 	    Node temp;
 	    int ny, nx;
 	    while(!queue.isEmpty()){
 	        temp = queue.poll();
-	        list.add(temp);
+	        count++;
+	        sb.append(temp.y).append(" ").append(temp.x).append("\n");
 	        for(int i=0;i<4;i++){
 	            ny = temp.y + dy[i];
 	            nx = temp.x + dx[i];
@@ -62,7 +55,7 @@ public class Main
 	            visit[ny][nx] = true;
 	            
 	            if(map[ny][nx]=='!'){
-	                list.add(new Node(ny, nx));
+	                sb.append(ny).append(" ").append(nx).append("\n");
 	                return;
 	            }else if( 'A'<=map[ny][nx] && map[ny][nx]<='Z' ){
 	                if(hasKey[map[ny][nx]-'A']){
