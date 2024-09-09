@@ -26,11 +26,11 @@ public class Main
             String input = br.readLine();
             for(int j = 1; j <= M; j++){
                 map[i][j] = input.charAt(j-1);
-                if(map[i][j]=='@') {
+                if(map[i][j]=='#') {
+	                visit[i][j] = true;
+                }else if(map[i][j]=='@') {
 	                visit[i][j] = true;
 	                queue.offer(new Node(i, j));
-                }else if(map[i][j]=='#') {
-	                visit[i][j] = true;
                 }
             }
         }
@@ -39,7 +39,7 @@ public class Main
 	    }
 	    sb.append("\n");
 	    fromEndToStart();
-	    System.out.print((count+1)+sb.toString());
+	    System.out.print(count+sb.toString());
 	}
 	static void fromEndToStart(){
 	    Node temp;
@@ -55,6 +55,7 @@ public class Main
 	            visit[ny][nx] = true;
 	            
 	            if(map[ny][nx]=='!'){
+                    count++;
 	                sb.append(ny).append(" ").append(nx).append("\n");
 	                return;
 	            }else if( 'A'<=map[ny][nx] && map[ny][nx]<='Z' ){
