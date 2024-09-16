@@ -16,16 +16,13 @@ public class Main
 	    st = new StringTokenizer(br.readLine());
 	    
 	    
-	    int i, j, max;
+	    int i, j;
 	    input[0] = Integer.parseInt(st.nextToken());
 	    for(i=1;i<N;i++){
 	        input[i] = Integer.parseInt(st.nextToken());
-	        max = 0;
 	        for(j=i-1; j>=0; j--){
 	            if(input[j]<input[i]) {
 	                small[i] = Math.max(small[i], small[j]+1);
-	            }else if(input[j]>input[i]) {
-	                max = Math.max(max, small[j]+1);
 	            }
 	        }
 	    }
@@ -33,12 +30,9 @@ public class Main
 	    answer = small[N-1]+big[N-1]+1;
 	    
 	    for(i=N-2;i>=0;i--){
-	        max = 0;
 	        for(j=i+1; j<=N-1; j++){
 	            if(input[j]<input[i]){
 	                big[i] = Math.max(big[i], big[j]+1);
-	            }else if(input[j]>input[i]){
-	                max = Math.max(max, big[j]+1);
 	            }
 	        }
 	        answer = Math.max(answer, small[i]+big[i]+1);
