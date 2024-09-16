@@ -5,9 +5,6 @@ public class Main
 {
 	static int N, M;
 	static int cost[][];
-	static List<List<Node>> link = new ArrayList<>();
-	static PriorityQueue<Node> pq = new PriorityQueue<>((o1,o2)-> o1.c-o2.c);
-	static boolean visit[];
 	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,11 +12,10 @@ public class Main
 
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
-        visit = new boolean[N+1];
         cost = new int[N+1][N+1];
         
-        for(int i=0;i<=N;i++){
-            link.add(new ArrayList<>());
+        for(int i=1;i<=N;i++){
+            Arrays.fill(cost[i], 100_000_001);
         }
         
         int a, b, c;
@@ -28,13 +24,16 @@ public class Main
             a = Integer.parseInt(st.nextToken());
             b = Integer.parseInt(st.nextToken());
             c = Integer.parseInt(st.nextToken());
-            
-            link.get(a).add(new Node(b,c));
-            // cost[a][b] = c;
+            cost[a][b] = Math.min(cost[a][b], c);
         }
         
-        for(int i=1;i<=N;i++){
-            dijistra(i);
+        for(int k=1;k<=N;k++){
+            for(int i=1;i<=N;i++){
+                for(int j=1;j<=N;j++){
+                    if(i==j) cost[i][j] = 0;
+                    else cost[i][j] = Math.min(cost[i][j], cost[i][k] + cost[k][j]);
+                }
+            }
         }
         
         for(int i=1;i<=N;i++){
@@ -45,30 +44,5 @@ public class Main
             sb.append("\n");
         }
         System.out.print(sb);
-	}
-	static void dijistra(int idx){
-	    visit = new boolean[N+1];
-	    Arrays.fill(cost[idx], 100_000_001);
-        pq.offer(new Node(idx, 0));
-        
-        Node temp;
-        while(!pq.isEmpty()){
-            temp = pq.poll();
-            if(visit[temp.v]) continue;
-            visit[temp.v] = true;
-            cost[idx][temp.v] = temp.c;
-            for(Node n : link.get(temp.v)){
-                if(!visit[n.v] && cost[idx][n.v]>n.c+temp.c) 
-                    pq.offer(new Node(n.v, n.c+temp.c));
-            }
-        }
-	    
-	}
-	static class Node{
-	    int v, c;
-	    Node(int v, int c){
-	        this.v=v;
-	        this.c=c;
-	    }
 	}
 }
