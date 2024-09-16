@@ -14,12 +14,12 @@ public class Main
 	    small = new int[N];
 	    big = new int[N];
 	    st = new StringTokenizer(br.readLine());
-	    for(int i=0;i<N;i++){
-	        input[i] = Integer.parseInt(st.nextToken());
-	    }
-	    // input[idx] 보다 작은 녀석의 갯수
+	    
+	    
 	    int i, j, max;
+	    input[0] = Integer.parseInt(st.nextToken());
 	    for(i=1;i<N;i++){
+	        input[i] = Integer.parseInt(st.nextToken());
 	        max = 0;
 	        for(j=i-1; j>=0; j--){
 	            if(input[j]<input[i]) {
@@ -43,13 +43,6 @@ public class Main
 	        }
 	        answer = Math.max(answer, small[i]+big[i]+1);
 	    }
-        System.out.print(answer);
-	}
-	static class Node{
-	    int idx, value;
-	    Node(int idx, int value){
-	        this.idx = idx;
-	        this.value = value;
-	    }
+	    System.out.print(answer);
 	}
 }
