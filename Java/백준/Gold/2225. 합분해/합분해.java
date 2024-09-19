@@ -17,8 +17,8 @@ public class Main
 	        dp[a][1] = 1;
 	    }
 	    
-	    for(int b=1; b<K; b++){
-	         for(int a=0;a<=N;a++){
+	    for(int a=0;a<=N;a++){
+             for(int b=1; b<K; b++){
 	             for(int c=0;a+c<=N;c++){
 	                 dp[a+c][b+1] += dp[a][b];
 	                 dp[a+c][b+1] %= 1_000_000_000;
