@@ -20,9 +20,8 @@ public class Main
                 if(sum==N) answer++;
                 for(;start<=end;){
                     sum -= sosu[start++];
-                    
-                    if(sum==N) answer++;
                     if(sum<N) break;
+                    else if(sum==N) answer++;
                 }
             }
         }
@@ -32,13 +31,13 @@ public class Main
         for(int j=4;j<=4_000_000;j+=2){
             num[j] = true;
         }
-        for(int i=3;i<=4_000_000;i+=2){
+        for(int i=3;i<4_000_000;i+=2){
             if(num[i]) {
                 count-=1;
                 continue;
             }
-            for(int j=2;i*j<=4_000_000;j++){
-                num[i*j] = true;
+            for(int j=i*3;j<4_000_000;j+=i){
+                num[j] = true;
             }
         }
         
