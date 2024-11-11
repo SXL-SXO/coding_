@@ -4,7 +4,7 @@ import java.io.*;
 class Main{
     static int N, M, answer = 0;
     static int[][] map;
-    static boolean[] visited;
+    static boolean[][] visited;
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -18,18 +18,16 @@ class Main{
                 map[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-        visited = new boolean[N];
+        visited = new boolean[N][N];
 
         total : for(int i = 0; i < N; i++){
-
-            Arrays.fill(visited, false);
             for(int j = 0; j < M-1; j++){
                 if(map[i][j] - map[i][j+1] > 1 || map[i][j] - map[i][j+1] < 0) {
                     continue total;
                 }else if(map[i][j] == map[i][j+1]+1){
                     for(int k = j+1; k < j+1+M; k++){
-                        if(k>=N || visited[k] || map[i][j+1]!=map[i][k]) continue total;
-                        visited[k] = true;
+                        if(k>=N || visited[i][k] || map[i][j+1]!=map[i][k]) continue total;
+                        visited[i][k] = true;
                     }
                 }
             }
@@ -39,13 +37,13 @@ class Main{
                     continue total;
                 }else if(map[i][j] == map[i][j+1]+1){
                     for(int k = j+1; k < j+1+M; k++){
-                        if(k>=N || visited[k] || map[i][j+1]!=map[i][k]) continue total;
-                        visited[k] = true;
+                        if(k>=N || visited[i][k] || map[i][j+1]!=map[i][k]) continue total;
+                        visited[i][k] = true;
                     }
                 }else if(map[i][j] == map[i][j+1]-1){
                     for(int k=j ; k >= j+1-M; k--){
-                        if(k<0 || visited[k] || map[i][j]!=map[i][k]) continue total;
-                        visited[k] = true;
+                        if(k<0 || visited[i][k] || map[i][j]!=map[i][k]) continue total;
+                        visited[i][k] = true;
                     }
                 }
             }
@@ -54,24 +52,22 @@ class Main{
                     continue total;
                 }else if(map[i][j] == map[i][j+1]-1){
                     for(int k=j ; k >= j+1-M; k--){
-                        if(k<0 || visited[k] || map[i][j]!=map[i][k]) continue total;
-                        visited[k] = true;
+                        if(k<0 || visited[i][k] || map[i][j]!=map[i][k]) continue total;
+                        visited[i][k] = true;
                     }
                 }
             }
-
-//            System.out.println(i);
             answer++;
         }
+        visited = new boolean[N][N];
         total : for(int i = 0; i < N; i++){
-            Arrays.fill(visited, false);
             for(int j = 0; j < M-1; j++){
                 if(map[j][i] - map[j+1][i] > 1 || map[j][i] - map[j+1][i] < 0) {
                     continue total;
                 }else if(map[j][i] == map[j+1][i]+1){
                     for(int k = j+1; k < j+1+M; k++){
-                        if(k>=N || visited[k] || map[j+1][i]!=map[k][i]) continue total;
-                        visited[k] = true;
+                        if(k>=N || visited[k][i] || map[j+1][i]!=map[k][i]) continue total;
+                        visited[k][i] = true;
                     }
                 }
             }
@@ -81,13 +77,13 @@ class Main{
                     continue total;
                 }else if(map[j][i] == map[j+1][i]+1){
                     for(int k = j+1; k < j+1+M; k++){
-                        if(k>=N || visited[k] || map[j+1][i]!=map[k][i]) continue total;
-                        visited[k] = true;
+                        if(k>=N || visited[k][i] || map[j+1][i]!=map[k][i]) continue total;
+                        visited[k][i] = true;
                     }
                 }else if(map[j][i] == map[j+1][i]-1){
                     for(int k=j ; k >= j+1-M; k--){
-                        if(k<0 || visited[k] || map[j][i]!=map[k][i]) continue total;
-                        visited[k] = true;
+                        if(k<0 || visited[k][i] || map[j][i]!=map[k][i]) continue total;
+                        visited[k][i] = true;
                     }
                 }
             }
@@ -96,13 +92,11 @@ class Main{
                     continue total;
                 } else if(map[j][i] == map[j+1][i]-1){
                     for(int k=j ; k >= j+1-M; k--){
-                        if(k<0 || visited[k] || map[j][i]!=map[k][i]) continue total;
-                        visited[k] = true;
+                        if(k<0 || visited[k][i] || map[j][i]!=map[k][i]) continue total;
+                        visited[k][i] = true;
                     }
                 }
             }
-            Arrays.fill(visited, false);
-//            System.out.println("/"+i);
             answer++;
         }
         System.out.println(answer);
