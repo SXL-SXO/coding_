@@ -3,7 +3,7 @@ import java.io.*;
 public class Main
 {
     static int T, N;
-    static int input[], sum[][], dp[][];
+    static int sum[][], dp[][];
     static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -12,7 +12,6 @@ public class Main
 		
 		for(int t=0;t<T;t++){
 		    N = Integer.parseInt(br.readLine());
-		    input = new int[N];
 		    
 		    //시작인덱스. 포함되는 개수
 		    dp = new int[N][N+1];
@@ -20,7 +19,7 @@ public class Main
 		    
 		    st = new StringTokenizer(br.readLine());
 		    for(int i=0;i<N;i++){
-		        sum[i][1] = input[i] = Integer.parseInt(st.nextToken());
+		        sum[i][1] = Integer.parseInt(st.nextToken());
 		    }
 		    
 		    //개수
