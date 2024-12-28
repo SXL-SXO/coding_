@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Main
 {
+    static PriorityQueue<Integer> pq = new PriorityQueue<>((o1,o2)->o2-o1);
     static int N, X, answer = 0, cost = 0;
-    static Integer input[];
 	public static void main(String[] args) throws Exception{
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    StringTokenizer st = new StringTokenizer(br.readLine());
@@ -13,22 +13,17 @@ public class Main
 	    X = Integer.parseInt(st.nextToken());
 	    cost = N*1000;
 	    
-	    input = new Integer[N];
-	    
-	    Integer A, B;
+	    int A, B;
 	    for(int i=0;i<N;i++){
 	        st = new StringTokenizer(br.readLine());
 	        A = Integer.parseInt(st.nextToken());
 	        B = Integer.parseInt(st.nextToken());
 	        
 	        answer += B;
-	        input[i] = A-B;
+	        if(A>B) pq.offer(A-B);
 	    }
-	    Arrays.sort(input, Collections.reverseOrder());
-	    
-	    for(int a : input){
-    	    if(a<0 || cost+4000>X) break; 
-    	    answer += a;
+	    while(!pq.isEmpty() && cost+4000<=X){
+    	    answer += pq.poll();
     	    cost += 4000;
 	    }
 	    
