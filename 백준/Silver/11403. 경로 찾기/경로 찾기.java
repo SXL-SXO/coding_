@@ -4,7 +4,7 @@ import java.io.*;
 public class Main
 {
     static int N;
-    static boolean num[], check[][];
+    static boolean check[][];
     static List<List<Integer>> link = new ArrayList<>();
     
     static StringBuilder sb = new StringBuilder();
@@ -13,7 +13,6 @@ public class Main
 	    StringTokenizer st;
 	    
 	    N = Integer.parseInt(br.readLine());
-	    num = new boolean[N];
 	    check = new boolean[N][N];
 	    
 	    for(int i=0;i<N;i++) link.add(new ArrayList());
@@ -32,6 +31,10 @@ public class Main
 	        queue.offer(i);
 	        while(!queue.isEmpty()){
 	            temp = queue.poll();
+	            if(temp<i){
+	                for(int j=0;j<N;j++) check[i][j] |= check[temp][j];
+	                continue;
+	            }
 	            for(int n : link.get(temp)){
 	                if(check[i][n]) continue;
 	                check[i][n] = true;
