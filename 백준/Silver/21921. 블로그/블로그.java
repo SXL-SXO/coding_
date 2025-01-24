@@ -16,27 +16,17 @@ public class Main
 		st = new StringTokenizer(br.readLine());
 		input = new int[N];
 		
+		int start = 0, sum = 0, max = 0, count = 0;
 		for(int i=0; i<N; i++) {
 			input[i] = Integer.parseInt(st.nextToken());
-		}
-		int sum = 0, max = 0, count = 1;
-		end = M;
-		for(int i=0;i<M;i++){
-		    sum += input[i];
-		}
-		
-		while(end < N){
-		    if(sum > max) {
+			sum += input[i];
+			if(i>=M) sum -= input[start++];
+			
+			if(sum > max) {
 		        max = sum;
 		        count = 1;
 		    }else if(sum==max) count++;
-		    
-		    sum = sum - input[end-M] + input[end++];
 		}
-		if(sum > max) {
-	        max = sum;
-	        count = 1;
-	    }else if(sum==max) count++;
 	    
 		if(max == 0) sb.append("SAD");
 		else sb.append(max).append("\n").append(count);
