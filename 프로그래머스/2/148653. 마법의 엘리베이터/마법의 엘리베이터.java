@@ -1,39 +1,36 @@
-import java.util.*;
+// 02:05~
 class Solution {
-    static PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2)-> (o1.count-o2.count));
+    static int N = 1, answer = 100000001;
     public int solution(int storey) {
-        int answer = 0;
         
-        pq.offer(new Node(storey, 0));
-        if(storey%10!=0) pq.offer(new Node(storey/10+1,10-storey%10));
+        // 1. 구현?
+        // 0 1 2 3 4 -> i 갯수 만큼
+        // 5 6 7 8 9 -> 10-i+1 만큼 이동해야함
         
-        Node temp;
-        while(!pq.isEmpty()){
-            temp = pq.poll();
-            if(temp.num>100_000_000 || temp.num<0) continue;
-            else if(temp.num == 0){
-                answer = temp.count;
-                break;
-            }
-            pq.offer(new Node(temp.num/10, temp.count+temp.num%10));
-            if(temp.num%10!=0) pq.offer(new Node(temp.num/10+1,temp.count+10-temp.num%10));
+        // 2. 2가지 선택, 최대 N=10
+        
+        for(;;N++){
+            if((int)Math.pow(10, N)>=storey) break;
         }
+        
+        check(storey%(int)Math.pow(10,N-1), N-1, (int)(storey/Math.pow(10,N-1)));
+        
+        int other = (int)Math.abs(Math.pow(10,N)-storey);
+        check(other%(int)Math.pow(10,N-1), N-1, (1+other/(int)Math.pow(10,N-1))%10+(1+other/(int)Math.pow(10,N-1))/10);
         
         return answer;
     }
-    static class Node{
-        int num, count;
-        Node(int num, int count){
-            this.num = num;
-            this.count = count;
+    static void check(int val, int idx, int count){
+        System.out.println(val+" "+idx+" "+count);
+        if(idx==1){
+            System.out.println("---"+(count+val)+" "+(count+(10-val)+1));
+            answer = Math.min(answer, Math.min(count+val, count+(10-val)+1));
+            return;
         }
-    }
-    static int len(int num){
-        int i = 1, j = 10;
-        for(;i<9;i++){
-            if(num<j) break;
-            j*=10;
-        }
-        return i-1;
+        
+        check(val%(int)Math.pow(10,idx-1), idx-1, count+(int)(val/Math.pow(10,idx-1)));
+        
+        int other = (int)Math.abs(Math.pow(10,idx)-val);
+        check(other%(int)Math.pow(10,idx-1), idx-1, count+(1+other/(int)Math.pow(10,idx-1))/10+(1+other/(int)Math.pow(10,idx-1))%10);
     }
 }
