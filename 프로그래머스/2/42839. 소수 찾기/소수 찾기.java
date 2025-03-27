@@ -1,4 +1,4 @@
-// 12:45
+// 12:45~13:23
 class Solution {
     static int N;
     static int input[];
@@ -21,10 +21,7 @@ class Solution {
                  
         int answer = 0;
         for(int i=2;i<10000000;i++){
-            if(!sosu[i] && visit[i]) {
-                System.out.print(i+" / ");
-                answer++;
-            }
+            if(!sosu[i] && visit[i]) answer++;
         }
         return answer;
     }
