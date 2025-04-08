@@ -1,73 +1,40 @@
-// 10:21
-import java.util.*;
+// 01:35~01:48
 class Solution {
-    static int N, M, M_M, answer = 0;
-    static Map<String, List<Integer>> map = new HashMap<>();
-    static Map<String, List<Integer>> possible_id = new HashMap<>();
-    static List<String> banned_id = new ArrayList<>();
-    static char input_u[][], input_b[][];
-    static boolean visit[];
-    static String user_id[], b_id[];
-    public int solution(String[] u, String[] b) {
-        user_id = u;
-        b_id = b;
-        
+    static int N, M;
+    static String input_u[], input_b[];
+    static boolean res[] = new boolean[(int)Math.pow(2, 9)];
+    public int solution(String[] user_id, String[] banned_id) {
         N = user_id.length;
-        M = b_id.length;
+        M = banned_id.length;
+        input_u = user_id;
+        input_b = banned_id;
         
-        for(int i=0;i<M;i++) {
-            map.put(b_id[i], map.getOrDefault(b_id[i], new ArrayList<>()));
-            map.get(b_id[i]).add(i);
-        }
-        M_M = map.size();
-        for(String s :map.keySet()) banned_id.add(s); 
+        make(0, 0);
         
-        input_u = new char[N][];
-        input_b = new char[M_M][];
-        for(int i=0;i<N;i++) input_u[i] = user_id[i].toCharArray();
-        for(int j=0;j<M_M;j++) {
-            input_b[j] = banned_id.get(j).toCharArray();
-            possible_id.put(banned_id.get(j), new ArrayList<>());
-        }
-        
-        for(int j=0;j<M_M;j++){
-            for(int i=0;i<N;i++){
-                if(user_id[i].length() != banned_id.get(j).length()) continue;
-                check(i, j);
-            }
-        }
-        
-        visit = new boolean[(int)Math.pow(2, 9)];
-        for(int a: possible_id.get(b_id[0])){
-            make(1, 1<<a);
-        }
-        
-        for(int i=0;i<Math.pow(2, 9);i++) if(visit[i]) answer++;
+        int answer = 0;        
+        for(int i=0;i<Math.pow(2, 9);i++) if(res[i]) answer++;
+            
         return answer;
     }
-    static int cal(int c){
-        int res = 1;
-        for(int i=c;i>0;i--) res*=i;
-        return res;
-    }
-    static void make(int idx, int disit){
-        if(idx == M){
-            visit[disit] = true;
+    static void make(int idx, int visit){
+        if(idx==M){
+            res[visit] = true;
             return;
         }
         
-        for(int a: possible_id.get(b_id[idx])){
-            if((disit & (1<<a)) != 0) continue;
-            make(idx+1, disit|(1<<a));
+        char w_b[] = input_b[idx].toCharArray();
+        for(int i=0;i<N;i++){
+            if((visit & (1<<i)) == 0 && check(input_u[i].toCharArray(), w_b)) make(idx+1, visit|(1<<i));
         }
+        
     }
-    static void check(int i, int j){
-        int len = banned_id.get(j).length();
-        for(int k=0;k<len;k++){
-            if(input_b[j][k]=='*') continue;
-            else if(input_u[i][k]!=input_b[j][k]) return;
+    static boolean check(char w_u[], char w_b[]){
+        if(w_u.length != w_b.length) return false;
+        int len = w_u.length;
+        for(int i=0;i<len;i++){
+            if(w_b[i]=='*') continue;
+            else if(w_b[i]!=w_u[i]) return false;
         }
-        possible_id.get(banned_id.get(j)).add(i);
+        return true;
     }
-    
 }
