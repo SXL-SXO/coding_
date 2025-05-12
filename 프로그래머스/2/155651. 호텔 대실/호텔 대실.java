@@ -1,50 +1,34 @@
+// 11:40
+
 import java.util.*;
-class Solution {
-    static String temp1[], temp2[];
-    static Node[] time;
+class Solution {    
+    static PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2) -> (o1.end==o2.end ? o1.start-o2.start : o1.end-o2.end));
     static int answer = 0;
-    static PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2)->o1.eh==o2.eh ? o1.em==o2.em ? o1.sh==o2.sh ? o1.sm-o2.sm : o1.sh-o2.sh : o1.em-o2.em : o1.eh-o2.eh);
-    public int solution(String[][] book_time) {
-        Arrays.sort(book_time, (o1, o2) -> o1[0].compareTo(o2[0])==0 ? o1[1].compareTo(o2[1]) : o1[0].compareTo(o2[0]));
-        
-        time = new Node[book_time.length];
-        for(int i=0;i<book_time.length;i++) {
-            temp1 = book_time[i][0].split(":");
-            temp2 = book_time[i][1].split(":");
-            time[i] = new Node(Integer.parseInt(temp1[0]), Integer.parseInt(temp1[1]), Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]));
-        }
-        
-        Node n;
-        pq.offer(time[0]);
-        for(int i=1;i<time.length;i++){
-            answer = Math.max(answer, pq.size());
+    public int solution(String[][] book_time) {        
+        String temp_1[], temp_2[];
+        Node temp;
             
-            while(!pq.isEmpty()) {
-                n = pq.poll();
-                if(!check(n.eh, n.em, time[i].sh, time[i].sm )) {
-                    pq.offer(n);
-                    break;
-                }
+        Arrays.sort(book_time, (o1, o2) -> o1[0].equals(o2[0]) ? o1[1].compareTo(o2[1]) : o1[0].compareTo(o2[0]));
+        for(String time[] : book_time){
+            temp_1 = time[0].split(":");
+            temp_2 = time[1].split(":");
+            temp = new Node(Integer.parseInt(temp_1[0])*60 + Integer.parseInt(temp_1[1]), Integer.parseInt(temp_2[0])*60 + Integer.parseInt(temp_2[1]) + 10);
+            
+            while(!pq.isEmpty() && pq.peek().end<=temp.start){
+                pq.poll();
             }
-            pq.offer(time[i]);
+            pq.offer(temp);
+            answer = Math.max(answer, pq.size());
         }
-        answer = Math.max(answer, pq.size());
-                             
+        
+        
         return answer;
     }
-    static boolean check(int h1, int m1, int h2, int m2){
-        if(h1+1<h2) return true;
-        else if(h1<h2 && m1+10 <= 60+m2) return true;
-        else if(h1==h2 && m1+10 <= m2) return true;
-        else return false;
-    }
     static class Node{
-        int sh, sm, eh, em;
-        Node(int sh, int sm, int eh, int em){
-            this.sh=sh;
-            this.sm=sm;
-            this.eh=eh;
-            this.em=em;
+        int start, end;
+        Node(int start, int end){
+            this.start = start;
+            this.end = end;
         }
     }
 }
