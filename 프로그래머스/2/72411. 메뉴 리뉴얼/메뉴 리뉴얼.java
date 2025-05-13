@@ -1,4 +1,4 @@
-// 03:16~
+// 03:16~04:29
 
 // 2^10 = 1024 ^20 10000000 ^26 64000000
 import java.util.*;
@@ -39,13 +39,7 @@ class Solution {
     }
     
     // 만들어진 경우의 수 중 각 갯수별로 최대값 구하기
-    static void s_sort(){        
-        for(String s : map.keySet()){
-            if(map.get(s)<2) continue;
-            
-            if(course[s.length()] == -1 || map.get(s)<course[s.length()]) continue;
-            else if(map.get(s)>course[s.length()]) course[s.length()] = map.get(s);
-        }
+    static void s_sort(){
         for(String s : map.keySet()){
             if(map.get(s) == course[s.length()]) pq.offer(s);
         }
@@ -59,6 +53,7 @@ class Solution {
                 if((num & (int)Math.pow(2, i)) != 0) sb.append((char)(i+'A'));
             }
             map.put(sb.toString(), map.getOrDefault(sb.toString(), 0)+1);
+            course[count] = Math.max(course[count], map.get(sb.toString()));
         }
         
         if(idx == 26 || count < 2) return;
