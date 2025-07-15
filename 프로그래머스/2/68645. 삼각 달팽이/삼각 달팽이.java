@@ -1,43 +1,58 @@
+// 02:35
 class Solution {
-    static int answer[], box[][];
-    static int cal[] = {0, 0, 0};
     static int N;
+    static int answer[];
     public int[] solution(int n) {
         N = n*(n+1)/2;
-        
         answer = new int[N];
-        box = new int[n][n];
         
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                box[i][j] = -1;
+        int M = 0, where = 0, weight = 1, type = 0;
+        for(int i=1;i<=N;i++){
+            answer[where] = i;
+            if(type == 0){
+                where += M+weight++;
+                if(weight == n-M*2) {
+                    type = 1;
+                    weight = 1;
+                }
+            }else if(type == 2){
+                where++;
+                weight++;
+                if(weight == n-M*3){
+                    type = 2;
+                    weight = n-M-1;
+                }
+            }else{
+                where -= weight--;
+                if(weight == M*2){
+                    M++;
+                    type = 0;
+                    weight = 1;
+                }
             }
         }
         
-        cal[0] = n;
-        cal[1] = 1;
-        cal[2] = -n-1; 
         
-        int where = 0, type = 0, count = 0;
-        for(int num=1;num<N;num++){
-            box[where/n][where%n] = num;
-            where += cal[type];
-            
-            while(where >= n*n || where < 0 || box[where/n][where%n] != 0) {
-                 where -= cal[type];
-                 type = (type+1)%3;
-                 where += cal[type];
-            }
-        }
-        box[where/n][where%n] = N;
-        
-        where = 0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(box[i][j]>0) answer[where++] = box[i][j];
-            }
-        }
-        
+        // for(int i=1;i<=N;i++){
+        //     answer[where] = i;
+        //     if(type == 0) {
+        //         where += weight++;
+        //         if(weight == n-M*2) {
+        //             type = 1;
+        //             weight = 1;
+        //         }
+        //     }else if(type == 1){
+        //         where++;
+        //         weight++;
+        //         if(weight == n-(M+1)*3) type = 2;
+        //     }else{
+        //         where -= n-M+weight--;
+        //         if(weight == (M+1)*2-1) {
+        //             type = 0;
+        //             M++;
+        //         }
+        //     }
+        // }
         
         return answer;
     }
