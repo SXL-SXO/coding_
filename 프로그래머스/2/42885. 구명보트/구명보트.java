@@ -1,22 +1,18 @@
-// 07:04~
+//02:35
 import java.util.*;
 class Solution {
-    static int N, start, end;
+    static int answer = 0, N;
     public int solution(int[] people, int limit) {
-        int answer = 0;
         N = people.length;
-        start = 0;
-        end = N-1;
         
         Arrays.sort(people);
-        while(start<end) {
-            if(people[start]+people[end]<=limit) {
-                start++;
-                end--;
-            }else end--;
+        
+        int start = 0;
+        for(int end = N-1; end>=start; end--){
+            if(people[start]+people[end]<=limit) start++;
             answer++;
         }
-        if(start==end) answer++;
+        
         return answer;
     }
 }
