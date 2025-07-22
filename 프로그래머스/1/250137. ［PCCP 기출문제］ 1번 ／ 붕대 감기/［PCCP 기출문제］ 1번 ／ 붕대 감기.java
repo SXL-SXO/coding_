@@ -1,17 +1,24 @@
+// 09:01
 class Solution {
+    static int H, N;
     public int solution(int[] bandage, int health, int[][] attacks) {
-        int answer = health;
+        N = attacks.length;
         
-        for(int i=0;i<attacks.length-1;i++){            
-            answer -= attacks[i][1];
-            if(answer<=0) return -1;
+        H = health-attacks[0][1];
+        if(H<=0) return -1;
+        
+        for(int i=1;i<N;i++){
+            H += (attacks[i][0]-attacks[i-1][0]-1)*bandage[1];
+            H += (attacks[i][0]-attacks[i-1][0]-1)/bandage[0]*bandage[2];
+            H = Math.min(health, H);
             
-            answer += (attacks[i+1][0]-attacks[i][0]-1)*bandage[1];
-            answer += (attacks[i+1][0]-attacks[i][0]-1)/bandage[0]*bandage[2];
-            if(answer>health) answer = health;
+            
+            // System.out.println(H+" "+(H-attacks[i][1]));
+            H -= attacks[i][1];
+            if(H<=0) return -1;
         }
-        answer -= attacks[attacks.length-1][1];
-        if(answer<=0) return -1;
-        return answer;
+        
+        
+        return H;
     }
 }
