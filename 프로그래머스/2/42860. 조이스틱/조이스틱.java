@@ -1,41 +1,30 @@
-// 04:49
+// 07:00
 import java.util.*;
+
 class Solution {
-    static int N, A, answer = 0;
     static char input[];
+    static int answer, N, A;
     public int solution(String name) {
-        N = name.length();
-        answer = 27*N;
-        
-        A = 0;
         input = name.toCharArray();
-        for(int i=0;i<N;i++){
-            if(input[i] == 'A') A = A|(1<<i);
-        }
-        if(A == (1<<N)-1) return 0;
+        N = input.length;
+        answer = 27*N; 
         
-        make(0, 0, 0, 0, 0);
+        for(int i=0;i<N;i++) if(input[i]=='A') A |= (1<<i);
+        
+        if(A == (1<<N)-1) answer = 0;
+        else make(0, 0, 0, 0, 0);
         
         return answer;
     }
-    static void make(int visit_f, int visit_b, int visit, int count, int idx){
-        if((visit | A) == ((1<<N) - 1)) {
+    static void make(int front, int back, int visit, int idx, int count){
+        if((visit|A) == (1<<N)-1) {
             answer = Math.min(answer, count-1);
-            // System.out.println(idx +" "+ count+ " "+ visit);
             return;
         }
-        if(idx == N) idx = 0;
-        else if(idx == -1) idx = N-1;
+        if((visit & (1<<idx)) == 0) count += Math.min((int)(input[idx]-'A'), (int)('Z'-input[idx])+1);
         
-        // System.out.println(idx +" "+ count+ " "+ visit);
-        if((visit&(1<<idx)) == 0) count += Math.min('Z'-input[idx]+1, input[idx]-'A');
-        visit |= (1<<idx);
-        
-        if((visit_f & (1<<idx)) == 0) 
-            make(visit_f|(1<<idx), visit_b, visit, count+1, idx+1);
-        
-        if((visit_b & (1<<idx)) == 0)
-            make(visit_f, visit_b|(1<<idx), visit, count+1, idx-1);
-        
+        if((front & (1<<idx)) == 0) make(front | (1<<idx), back, visit | (1<<idx), idx == 0 ? N-1 : idx-1, count+1);
+    
+        if((back & (1<<idx)) == 0) make(front, back | (1<<idx), visit | (1<<idx), idx == N-1 ? 0 : idx+1, count+1);
     }
 }
