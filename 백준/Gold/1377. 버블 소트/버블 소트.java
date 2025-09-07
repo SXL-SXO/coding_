@@ -12,19 +12,18 @@ public class Main
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    
 	    N = Integer.parseInt(br.readLine());
-	    input_s = new Node[N+1];
+	    input_s = new Node[N];
 	    input_s[0] = new Node(0, -1);
 	    
-	    for(int i=1;i<=N;i++) {
+	    for(int i=0;i<N;i++) {
 	        input_s[i] = new Node(i, Integer.parseInt(br.readLine()));
 	    }
 	    Arrays.sort(input_s, 
 	        (o1, o2) -> o1.val==o2.val ? o1.idx-o2.idx : o1.val-o2.val);
 	    
 	    Node temp;
-	    for(int i=1;i<=N;i++){
-	        if(input_s[i].idx<=i) continue;
-	        answer = Math.max(answer, input_s[i].idx-i);
+	    for(int i=0;i<N;i++){
+	        if(input_s[i].idx>i) answer = Math.max(answer, input_s[i].idx-i);
 	    }
 	    
 	    System.out.print(answer+1);
