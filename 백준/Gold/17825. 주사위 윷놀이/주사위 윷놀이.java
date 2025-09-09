@@ -29,8 +29,9 @@ public class Main
 	    int size, sum;
 	    Node temp, next;
 	    
-	    queue.offer(new Node(new int[4], 0));
-	    for(int i=0;i<10;i++){
+	    if(input[0]<5) queue.offer(new Node(new int[]{input[0], 0, 0, 0}, point[input[0]]));
+	    else queue.offer(new Node(new int[]{30, 0, 0, 0}, point[input[0]]));
+	    for(int i=1;i<10;i++){
 	        size = queue.size();
 	        for(int j=0;j<size;j++){
 	            temp = queue.poll();
