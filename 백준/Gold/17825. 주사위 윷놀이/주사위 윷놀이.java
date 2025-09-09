@@ -5,7 +5,6 @@ public class Main
     static int answer = 0;
     static int input[] = new int[10];
     static int map[] = new int[64], point[] = new int[64];
-    static boolean visit[] = new boolean[64];
     static Queue<Node> queue = new ArrayDeque<>();
 	public static void main(String[] args) throws Exception{
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -57,7 +56,7 @@ public class Main
 	                if(next.w[k] > 63) next.w[k] = -1;
 	                else if(next.w[k] > 0) next.score += point[next.w[k]];
 	                
-	                if(check(next)) queue.offer(next);
+	                if(!check(next, k)) queue.offer(next);
 	            }
 	        }
 	    }
@@ -74,14 +73,13 @@ public class Main
 	        return Arrays.toString(this.w)+" "+this.score;
 	    }
 	}
-	static boolean check(Node n){
-	    Arrays.fill(visit, false);
-	    for(int i=0;i<4;i++){
-	        if(n.w[i]<=0) continue;
-	        else if(visit[n.w[i]]) return false;
-	        visit[n.w[i]] = true;
+	static boolean check(Node n, int idx){
+	    boolean res = false;
+	    for(int i=0;i<4;i++) {
+	        if( i==idx || n.w[i]<=0 ) continue;
+	        res |= n.w[i]==n.w[idx];
 	    }
-	    return true;
+	    return res;
 	}
 	static void init(){
 	    for(int i=0;i<21;i++) point[i] = i*2;
