@@ -13,3 +13,4 @@ with A as (
 select QUARTER, count(*) as ECOLI_COUNT
 from A
 group by QUARTER
+order by QUARTER
